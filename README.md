@@ -1,4 +1,4 @@
-# Practical Java Course
+# Advanced Java with Spring
 ## Web Application 'ToDo List'
 
 ## 📋 Project Overview

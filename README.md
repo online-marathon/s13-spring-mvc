@@ -1,4 +1,4 @@
-# Practical Java Course
+# Advanced Java with Spring
 ## Web Application ‘ToDo List’
 1. Remove comments in all classes in Controller package and add needed code there
 

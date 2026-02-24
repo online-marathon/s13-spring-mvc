@@ -22,38 +22,48 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/create")
-    public String create(/*add needed parameters*/) {
-        //TODO
+    public String create(Model model) {
+        // TODO: Implement create User form
+        return "redirect:/";
     }
 
     @PostMapping("/create")
-    public String create(/*add needed parameters*/) {
-        //TODO
+    public String create(@Validated @ModelAttribute("user") CreateUserDto userDto,
+                        BindingResult result) {
+        // TODO: Implement create User
+        return "redirect:/";
     }
 
     @GetMapping("/{id}/read")
-    public String read(/*add needed parameters*/) {
-        //TODO
+    public String read(@PathVariable("id") Long id, Model model) {
+        // TODO: Implement read User
+        return "redirect:/";
     }
 
     @GetMapping("/{id}/update")
-    public String update(/*add needed parameters*/) {
-        //TODO
+    public String update(@PathVariable("id") Long id, Model model) {
+        // TODO: Implement update User form
+        return "redirect:/";
     }
 
     @PostMapping("/{id}/update")
-    public String update(/*add needed parameters*/) {
-        //TODO
+    public String update(@PathVariable("id") Long id,
+                        @Validated @ModelAttribute("user") UpdateUserDto userDto,
+                        BindingResult result,
+                        Model model) {
+        // TODO: Implement update User
+        return "redirect:/";
     }
 
-
     @GetMapping("/{id}/delete")
-    public String delete(/*add needed parameters*/) {
-        // TODO
+    public String delete(@PathVariable("id") Long id) {
+        // TODO: Implement delete User
+        return "redirect:/";
     }
 
     @GetMapping("/all")
-    public String getAll(/*add needed parameters*/) {
-        // TODO
+    public String getAll(Model model) {
+        // TODO: Implement get all Users
+        return "redirect:/";
     }
 }

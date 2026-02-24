@@ -1,6 +1,11 @@
 # Practical Java Course
-## Web Application ‘ToDo List’
-1. Remove comments in all classes in Controller package and add needed code there
+## Web Application 'ToDo List'
+
+## 📋 Project Overview
+This is a Spring MVC web application for managing ToDo lists with tasks. The project implements a complete CRUD functionality for Users, ToDo lists, Tasks, and States.
+
+## 🎯 Student Task
+Implement the **UserController** and **ToDoController** methods marked with `// TODO` comments. All other components (models, repositories, services, State and Task controllers) are already implemented.
 
 ### Create Web Application with:
 
@@ -109,10 +114,20 @@ Submit links to your GitHub repository and make a short video (2-5 minutes) wher
 <!-- ![](mockups/users.png) -->
 
 
-## Set Up DB
-When application starts your DB will be filled data from data.sql file from resources folder
+## 🗄️ Database Setup
 
-There are three users with ADMIN and USER roles in DB.
+### Prerequisites
+- PostgreSQL installed and running on `localhost:5432`
+- Database named `todolist` created
+
+### Configuration
+Update `src/main/resources/application.properties` if needed
+
+
+### Initial Data
+When the application starts, your DB will be filled with data from `data.sql` file from the resources folder.
+
+There are three users with ADMIN and USER roles in DB:
 
 | Login         |  Password  | Role  |
 | ------------- |:----------:|:-----:|
@@ -120,4 +135,72 @@ There are three users with ADMIN and USER roles in DB.
 | nick@mail.com |  Qwerty1!  | USER  |
 | nora@mail.com |  Qwerty2@  | USER  |
 
-User with Admin role has access to all data and resources in DB
+User with Admin role has access to all data and resources in DB.
+
+## 🏗️ Project Structure
+
+### ✅ Already Implemented
+- **Models**: User, ToDo, Task, State (with full validation)
+- **Repositories**: All repositories with Spring Data JPA
+- **Services**: All services with `@Transactional` support
+- **Controllers**:
+  - `HomeController` - home page
+  - `LoginController` - authentication
+  - `StateController` - CRUD for states
+  - `TaskController` - CRUD for tasks
+- **Templates**:
+  - home.html, login.html
+  - create-user.html (registration form)
+  - state templates (list, create, update)
+  - task templates (create, update)
+
+### ⚠️ To Be Implemented by Students
+- **UserController** methods:
+  - GET/POST `/users/create` - user registration
+  - GET `/users/{id}/read` - view user info
+  - GET/POST `/users/{id}/update` - update user
+  - GET `/users/{id}/delete` - delete user
+  - GET `/users/all` - list all users
+
+- **ToDoController** methods:
+  - GET/POST `/todos/create/users/{owner_id}` - create ToDo
+  - GET/POST `/todos/{todo_id}/update/users/{owner_id}` - update ToDo
+  - GET `/todos/{todo_id}/delete/users/{owner_id}` - delete ToDo
+  - GET `/todos/all/users/{user_id}` - list user's ToDos
+  - GET `/todos/{id}/add?user_id={userId}` - add collaborator
+  - GET `/todos/{id}/remove?user_id={userId}` - remove collaborator
+
+- **Templates to implement**:
+  - update-user.html
+  - user-info.html
+  - users-list.html
+  - create-todo.html
+  - update-todo.html
+  - todos-user.html
+  - todo-tasks.html
+
+## 🚀 How to Run
+1. Ensure PostgreSQL is running with database `todolist`
+2. Run the Spring Boot application
+3. Navigate to `http://localhost:8083`
+4. Login with credentials from the table above
+
+## 📚 Technologies Used
+- Spring Boot 4.0.3
+- Spring MVC
+- Spring Data JPA
+- Thymeleaf
+- PostgreSQL
+- Lombok
+- Bootstrap 5
+- Jakarta Validation
+- Java 21
+
+## ✅ What Can Be Tested Now
+- ✅ Login/Logout functionality
+- ✅ Home page
+- ✅ State management (full CRUD) at `/states`
+- ✅ Registration form display at `/users/create`
+- ⚠️ Task management (requires ToDo to be implemented first)
+- ❌ User management (to be implemented)
+- ❌ ToDo management (to be implemented)

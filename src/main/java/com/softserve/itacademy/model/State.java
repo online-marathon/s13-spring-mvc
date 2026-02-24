@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -12,20 +14,20 @@ import java.util.List;
 @Table(name = "states")
 @Getter
 @Setter
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@EqualsAndHashCode(of = {"name"})
+@ToString(exclude = "tasks")
 public class State {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private long id;
+    private Long id;
 
     @NotBlank(message = "The 'name' cannot be empty")
-    @Column(nullable = false, unique = true)
-    @EqualsAndHashCode.Include
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "state")
+    @OneToMany(mappedBy = "state", cascade = CascadeType.REMOVE)
     private List<Task> tasks;
 
 }

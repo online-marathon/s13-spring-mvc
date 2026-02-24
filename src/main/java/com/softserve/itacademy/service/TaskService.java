@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,12 +25,14 @@ public class TaskService {
     private final StateRepository stateRepository;
     private final TaskTransformer taskTransformer;
 
+    @Transactional
     public TaskDto create(TaskDto taskDto) {
         Task task = taskTransformer.fillEntityFields(
                 new Task(),
                 taskDto,
                 toDoRepository.findById(taskDto.getTodoId()).orElseThrow(),
                 stateRepository.findByName("New")
+                        .orElseThrow(() -> new EntityNotFoundException("State 'New' not found"))
         );
 
         if (task != null) {
@@ -39,8 +42,8 @@ public class TaskService {
         throw new NullEntityReferenceException("Task cannot be 'null'");
     }
 
+    @Transactional(readOnly = true)
     public Task readById(long id) {
-
         EntityNotFoundException exception = new EntityNotFoundException("Task with id " + id + " not found");
         log.error(exception.getMessage(), exception);
 
@@ -48,6 +51,7 @@ public class TaskService {
                 () -> exception);
     }
 
+    @Transactional
     public Task update(Task task) {
         if (task != null) {
             readById(task.getId());
@@ -56,16 +60,19 @@ public class TaskService {
         throw new NullEntityReferenceException("Task cannot be 'null'");
     }
 
+    @Transactional
     public void delete(long id) {
         Task task = readById(id);
         taskRepository.delete(task);
     }
 
+    @Transactional(readOnly = true)
     public List<Task> getAll() {
         return taskRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Task> getByTodoId(long todoId) {
-        return taskRepository.getByTodoId(todoId);
+        return taskRepository.findByTodoId(todoId);
     }
 }
